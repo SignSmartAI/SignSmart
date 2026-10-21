@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignSmart AI</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #e0f7fa, #e8eaf6);
+            text-align: center;
+            margin: 0;
+            padding: 30px 15px;
+            color: #263238;
+        }
+
+        .app {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #3949ab;
+        }
+
+        input {
+            width: 85%;
+            padding: 12px;
+            border: 2px solid #c5cae9;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+
+        button {
+            margin: 10px 5px;
+            padding: 12px 20px;
+            background: #3949ab;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #283593;
+        }
+
+        #character {
+            font-size: 100px;
+            margin: 20px;
+            animation: breathe 2s infinite ease-in-out;
+        }
+
+        #hands {
+            font-size: 60px;
+            min-height: 75px;
+        }
+
+        #output {
+            background: #f3f4ff;
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 20px;
+            min-height: 30px;
+            overflow-wrap: anywhere;
+        }
+
+        .note {
+            color: #616161;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        @keyframes breathe {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        @keyframes wave {
+            0%, 100% {
+                transform: rotate(0deg);
+            }
+            50% {
+                transform: rotate(20deg);
+            }
+        }
+
+        .waving {
+            display: inline-block;
+            animation: wave 0.5s infinite alternate;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app">
+        <h1>SignSmart AI</h1>
+
+        <p>Type a message and meet your animated character!</p>
+
+        <input
+            type="text"
+            id="message"
+            placeholder="Type a message here..."
+        >
+
+        <br>
+
+        <button onclick="showMessage()">Show Message</button>
+        <button onclick="waveCharacter()">Wave Hello!</button>
+
+        <div id="character" aria-label="Animated character">🧑</div>
+
+        <div id="hands">👋</div>
+
+        <div id="output">
+            Your message will appear here.
+        </div>
+
+        <p class="note">
+            This is a demonstration of an animated character.
+            The movements are not yet a real sign-language translation.
+        </p>
+    </div>
+
+    <script>
+        function showMessage() {
+            const message = document.getElementById("message").value;
+            const output = document.getElementById("output");
+
+            if (message.trim() === "") {
+                output.textContent = "Please type a message first!";
+                return;
+            }
+
+            output.textContent = "Your message: " + message;
+
+            const character = document.getElementById("character");
+            character.classList.add("waving");
+
+            setTimeout(function () {
+                character.classList.remove("waving");
+            }, 1500);
+        }
+
+        function waveCharacter() {
+            const character = document.getElementById("character");
+
+            character.classList.add("waving");
+
+            document.getElementById("hands").textContent = "👋";
+            document.getElementById("output").textContent =
+                "Hello! Welcome to SignSmart AI!";
+
+            setTimeout(function () {
+                character.classList.remove("waving");
+            }, 2000);
+        }
+    </script>
+</body>
+</html>

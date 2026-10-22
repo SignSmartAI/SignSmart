@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SignSmart AI</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f1f5ff;
+      color: #20264a;
+      margin: 0;
+      padding: 30px 16px;
+      text-align: center;
+    }
+    .app {
+      max-width: 650px;
+      margin: 30px auto;
+      background: white;
+      padding: 28px;
+      border-radius: 20px;
+      box-shadow: 0 5px 20px #ccd3e8;
+    }
+    h1 { color: #5554c8; }
+    textarea {
+      width: 95%;
+      height: 90px;
+      padding: 10px;
+      font-size: 16px;
+      border: 2px solid #c9cafa;
+      border-radius: 10px;
+      box-sizing: border-box;
+    }
+    button {
+      background: #5554c8;
+      color: white;
+      border: none;
+      padding: 12px 18px;
+      margin: 8px 4px;
+      border-radius: 10px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+    button:hover { background: #39389b; }
+    .panel {
+      background: #f1f0ff;
+      padding: 16px;
+      margin-top: 20px;
+      border-radius: 12px;
+      overflow-wrap: anywhere;
+    }
+    #message { font-size: 20px; }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <h1>🤟 SignSmart AI</h1>
+    <p>Your classroom communication assistant</p>
+
+    <h3>Type a message</h3>
+    <textarea id="input" placeholder="Type your message here..."></textarea>
+    <br>
+    <button onclick="showMessage()">Show message</button>
+    <button onclick="speakMessage()">Read aloud 🔊</button>
+
+    <div class="panel">
+      <h3>Classroom message</h3>
+      <p id="message">Your message will appear here.</p>
+    </div>
+
+    <div class="panel">
+      <h3>🤟 Sign language area</h3>
+      <p id="sign">Your signing feature will go here.</p>
+      <p>Sign-language animations will be added in a later step.</p>
+    </div>
+  </main>
+
+  <script>
+    function showMessage() {
+      const text = document.getElementById("input").value.trim();
+      if (!text) {
+        document.getElementById("message").textContent =
+          "Please type a message first.";
+        return;
+      }
+      document.getElementById("message").textContent = text;
+      document.getElementById("sign").textContent =
+        "Message ready: " + text;
+    }
+
+    function speakMessage() {
+      const text = document.getElementById("input").value.trim();
+      if (!text) {
+        alert("Please type a message first.");
+        return;
+      }
+      if ("speechSynthesis" in window) {
+        window.speechSynthesis.cancel();
+        window.speechSynthesis.speak(
+          new SpeechSynthesisUtterance(text)
+        );
+      } else {
+        alert("Text-to-speech is not supported in this browser.");
+      }
+    }
+  </script>
+</body>
+</html>
